@@ -130,7 +130,7 @@ The code supports missing attribute masks: it will skip missing attributes and r
 
 ## 6) citation
 
-If you use this repo in a thesis/paper, cite your SEC work accordingly.
+If you use this repo in a thesis/paper, cite the SEC work accordingly.
 
 ---
 
