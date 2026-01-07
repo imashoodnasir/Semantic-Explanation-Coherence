@@ -1,0 +1,47 @@
+dataset:
+  name: ham10000
+  root: data/ham10000
+  images_dir: images
+  labels_csv: data/ham10000/labels.csv
+  lesion_masks_dir: lesion_masks
+  attr_masks_dir: attr_masks
+  num_classes: 7
+  image_size: 224
+  normalize: imagenet
+  split_json: splits/ham10000/seed_1.json
+
+model:
+  name: resnet50
+  pretrained: true
+  num_classes: 7
+  checkpoint_path: ""  # filled after training
+
+train:
+  seed: 1
+  epochs: 20
+  batch_size: 32
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+  optimizer: adamw
+  scheduler: cosine
+  num_workers: 2
+  amp: true
+
+xai:
+  methods: [gradcam, gradcampp, scorecam, ig, attention_rollout]
+  target_layer: "layer4"  # for resnet-like backbones
+  ig_steps: 50
+  ig_baseline: zero
+  smooth_sigma: 2.0
+
+sec:
+  attributes: [asymmetry, border, pigment_network, streaks, color]
+  weights:
+    asymmetry: 0.15
+    border: 0.30
+    pigment_network: 0.25
+    streaks: 0.15
+    color: 0.15
+  lesion_threshold: 0.5
+  attr_threshold: 0.5
+  heatmap_softmax: true
